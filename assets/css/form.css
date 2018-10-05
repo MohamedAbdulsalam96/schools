@@ -1,0 +1,17 @@
+.form-group {
+	display: grid
+}
+
+label {
+	font-size: 0.9em;
+	font-weight: 200
+}
+
+label, input, select {
+	margin: 2px;
+	padding: 5px;
+}
+
+form {
+	margin: auto 60px;
+}

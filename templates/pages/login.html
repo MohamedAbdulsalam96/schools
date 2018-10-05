@@ -1,0 +1,15 @@
+{% extends 'layout/base.html' %}
+
+{% block title %} {{ "Log In" }} {% endblock %}
+
+{% block content %}
+	<div class="login-form">
+		<form class="form-group" action="{% url 'login' %}" method="post">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" name="" value="Log In">
+		</form>
+		<br>
+		<p>don't have an account, please register <a href="{% url 'signup' %}">here</a></p>
+	</div>
+{% endblock %}
