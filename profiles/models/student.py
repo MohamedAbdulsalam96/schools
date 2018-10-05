@@ -2,16 +2,16 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.db.models.signals import pre_save
 from django.utils.dateformat import format
+from schools.settings import AUTH_USER_MODEL
+from django.db.models.signals import pre_save
 
 import datetime
-from .user import User
 from .parent import ParentItem
 
 class Student(models.Model):
 	# Personal Information
-	user = models.OneToOneField(User, default=None, related_name="user")
+	user = models.OneToOneField(AUTH_USER_MODEL, default=None, related_name="user")
 	title = models.CharField(max_length=100, editable=False)
 	first_name = models.CharField(max_length=50)
 	last_name = models.CharField(max_length=50)
@@ -22,14 +22,14 @@ class Student(models.Model):
 	prn = models.CharField(max_length=50,
 		editable=False)
 	roll_no = models.IntegerField()
-	standard = models.ForeignKey('Standard')
-	division = models.ForeignKey('Division')
+	# standard = models.ForeignKey('Standard')
+	# division = models.ForeignKey('Division')
 	# previous years details
 
 	# Timestamps
 	creation = models.DateTimeField(auto_now_add=True, editable=False)
 	modified = models.DateTimeField(auto_now=True, editable=False)
-	created_by = models.ForeignKey(User, default=None)
+	created_by = models.ForeignKey(AUTH_USER_MODEL, default=None)
 
 	def __str__(self):
 		return " ".join([self.prn, self.title, str(self.standard), str(self.division),

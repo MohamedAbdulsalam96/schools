@@ -1,11 +1,11 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.contrib.auth.models import User
+from schools.settings import AUTH_USER_MODEL
 
 class Parent(models.Model):
 	# fields in the Parent Model
-	user = models.OneToOneField(User, default=None)
+	user = models.OneToOneField(AUTH_USER_MODEL, default=None)
 	title = models.CharField(max_length=100)
 	first_name = models.CharField(max_length=50)
 	last_name = models.CharField(max_length=50)

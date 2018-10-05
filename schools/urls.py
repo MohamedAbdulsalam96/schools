@@ -14,15 +14,31 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from . import views
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+from profiles.urls import (
+    student_urls, parent_urls, teacher_urls
+)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home),
     url(r'^home/$', views.home, name="home"),
-    url(r'^about/$', views.about, name="about")
+    url(r'^about/$', views.about, name="about"),
+    url(r'^signup/$', views.signup, name='signup'),
+    url(r'^login/$', views.login_user, name='login'),
+    url(r'^logout/$', views.logout_user, name='logout'),
+
+    # Student URLs
+    url(r'^student/', include(student_urls.urlpatterns)),
+
+    # Teacher URLs
+    url(r'^teacher/', include(teacher_urls.urlpatterns)),
+
+    # Parent URLs
+    # url(r'^parent/', include(core_urls.teacher_urlpatterns)),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

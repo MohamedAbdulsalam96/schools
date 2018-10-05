@@ -1,0 +1,103 @@
+{% extends 'layout/base.html' %}
+
+{% load static from staticfiles %}
+{% block stylesheet %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block title %} {{ doc.title }} {% endblock %}
+
+{% block content %}
+	<div class='profile'>
+		<div class='row'>
+			<div class="col-md-12">
+				<h3>Student Profile
+					 <a href="{% url 'update-student' prn=doc.prn %}">
+					 	<i class="fa fa-edit"></i>
+					 </a>
+				</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h4>Personal Details</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6"></div>
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-4 fieldlabel">First Name</div>
+					<div class="col-md-8">{{ doc.first_name }}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 fieldlabel">Last Name</div>
+					<div class="col-md-8">{{ doc.last_name }}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 fieldlabel">Full Name</div>
+					<div class="col-md-8">{{ doc.title }}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 fieldlabel">Date Of Birth</div>
+					<div class="col-md-8">{{ doc.date_of_birth }}</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 fieldlabel">Gender</div>
+					<div class="col-md-8">{{ doc.gender }}</div>
+				</div>
+			</div>
+		</div>
+
+		{% if parents %}
+		<div class="row">
+			<div class="col-md-12"><h4>Parents</h4></div>
+			<div class="col-md-12">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Parent</th>
+							<th>Relation</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for parent in parents %}
+						<tr>
+							<td>{{ parent.parent }}</td>
+							<td>{{ parent.relation }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{% endif %}
+
+		<div class="row">
+			<div class="col-md-12">
+				<h4>Acedemic Details</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2 fieldlabel">PRN Number</div>
+			<div class="col-md-4">{{ doc.prn }}</div>
+			<div class="col-md-2 fieldlabel">Roll No</div>
+			<div class="col-md-4">{{ doc.roll_no }}</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2 fieldlabel">Date Of Joining</div>
+			<div class="col-md-4">{{ doc.date_of_joining }}</div>
+			<div class="col-md-2 fieldlabel">Standard</div>
+			<div class="col-md-4">{{ doc.standard }}</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-4"></div>
+			<div class="col-md-2 fieldlabel">Division</div>
+			<div class="col-md-4">{{ doc.division }}</div>
+		</div>
+
+		<div class="row col-md-12 timestamp">modified at {{ doc.creation }}</div>
+		<div class="row col-md-12 timestamp">created at {{ doc.creation }}</div>
+	</div>
+{% endblock %}

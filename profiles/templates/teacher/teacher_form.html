@@ -1,0 +1,23 @@
+{% extends 'layout/base.html' %}
+
+{% load static from staticfiles %}
+
+{% block stylesheet %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}">
+{% endblock %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+	<div class="forms">
+		{% if id %}
+		<form class="form-group" action="{% url 'update-teacher' id=id %}" method="POST">
+		{% else %}
+		<form class="form-group" action="{% url 'new-teacher' %}" method="POST">
+		{% endif %}
+			{% csrf_token %}
+			{{ form }}
+			<input type="submit" value="Save">
+		</form>
+	</div>
+{% endblock %}

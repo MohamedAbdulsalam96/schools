@@ -1,0 +1,36 @@
+{% extends 'layout/base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+{% if not rows %}
+	add new <a href="{% url 'new-teacher' %}">Teacher</a>
+{% else %}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Assigned Standard</th>
+				<th>Assigned Division</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in rows %}
+				<tr>
+					<td><a href="{% url 'teacher-profile' id=row.id %}">{{ row.id }}</a></td>
+					<td>{{ row.first_name }}  {{ row.last_name }}</td>
+					<td>{{ row.assigned_class }}</td>
+					<td>{{ row.assigned_division }}</td>
+					<td>
+						<a href="{% url 'delete-teacher' id=row.id %}">
+							<i class="fa fa-trash" aria-hidden="true"></i>
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endif %}
+{% endblock %}

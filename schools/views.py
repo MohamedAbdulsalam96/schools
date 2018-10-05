@@ -1,5 +1,7 @@
-from django.http import HttpResponse
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 def home(request):
 	return render(request, "pages/home.html", {
@@ -16,3 +18,41 @@ def about(request):
 		},
 		'no_sidebar': True
 	})
+
+def signup(request):
+
+	if request.method == "POST":
+		form = UserCreationForm(data=request.POST)
+		if form.is_valid():
+			form.save()
+
+		return redirect("student-list")
+	else:
+		form = UserCreationForm()
+
+	return render(request, "pages/signup.html", {
+		'form': form,
+		'no_sidebar': True
+	})
+
+def login_user(request):
+	if request.method == "POST":
+		form = AuthenticationForm(data=request.POST)
+		if form.is_valid():
+			user = form.get_user()
+			login(request, user)
+			return redirect("student-list")
+		else:
+			print "form", form
+	else:
+		form = AuthenticationForm()
+
+	return render(request, "pages/login.html", {
+		"form": form,
+		'no_sidebar': True
+	})
+
+def logout_user(request):
+	if request.method == "POST":
+		logout(request)
+		return redirect("/")
