@@ -1,0 +1,30 @@
+{% extends 'layout/base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+{% if not rows %}
+	add new <a href="{% url 'new-department' %}">Department</a>
+{% else %}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Department</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in rows %}
+				<tr>
+					<td>{{ row.department }}</td>
+					<td>
+						<a href="{% url 'delete-department' department=row.department %}">
+							<i class="fa fa-trash" aria-hidden="true"></i>
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endif %}
+{% endblock %}

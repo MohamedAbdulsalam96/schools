@@ -56,3 +56,16 @@ def logout_user(request):
 	if request.method == "POST":
 		logout(request)
 		return redirect("/")
+
+def render_base_form(request, form, id, id_field="id", title="", update_url="",
+	new_url=""):
+	""" render base form """
+
+	return render(request, "layout/base_form.html", {
+        "id_field": id_field,
+        "id_value": id,
+		"form": form,
+        "new_url": new_url,
+        "update_url": update_url,
+		"title": title,
+	})

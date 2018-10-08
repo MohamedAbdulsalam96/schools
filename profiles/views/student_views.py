@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from schools.views import render_base_form
 from profiles.models.student import Student
+from django.shortcuts import render, redirect
 from profiles.forms.student_form import StudentForm
 
 def get_student_list(request):
@@ -42,8 +43,5 @@ def save_update_student(request, prn=None):
 		student = Student.objects.get(prn=prn) if prn else None
 		form = StudentForm(instance=student)
 
-	return render(request, "student/student_form.html", {
-		"form": form,
-		"title": "Update Student" if prn else "Create New",
-		"prn": prn
-	})
+	return render_base_form(request, form, prn, id_field="prn", new_url="new-student",
+        update_url="update-student")

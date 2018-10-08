@@ -32,8 +32,7 @@ class Student(models.Model):
 	created_by = models.ForeignKey(AUTH_USER_MODEL, default=None)
 
 	def __str__(self):
-		return " ".join([self.prn, self.title, str(self.standard), str(self.division),
-			str(self.roll_no)])
+		return " ".join([self.prn, self.title, str(self.roll_no)])
 
 def validate(sender, instance=None, **kwargs):
 	"""
