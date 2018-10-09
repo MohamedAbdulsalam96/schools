@@ -1,0 +1,46 @@
+{% extends 'layout/base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+{% if not rows %}
+	add new <a href="{% url 'new-assessment' %}">Assessment</a>
+{% else %}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Roll No</th>
+				<th>Student</th>
+				<th>Exam</th>
+				<th>Subject</th>
+				<th>Course</th>
+				<th>Department</th>
+				<th>Attendance</th>
+				<th>Marks Scored</th>
+				<th>Status</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in rows %}
+				<tr>
+					<td>{{ row.roll_no }}</td>
+					<td>{{ row.student }}</td>
+					<td>{{ row.exam }}</td>
+					<td>{{ row.subject }}</td>
+					<td>{{ row.course }}</td>
+					<td>{{ row.department }}</td>
+					<td>{{ row.attendance }}</td>
+					<td>{{ row.marks_scored }} / {{ row.out_of }}</td>
+					<td>{{ row.status }}</td>
+					<td>
+						<a href="{% url 'delete-assessment' id=row.id %}">
+							<i class="fa fa-trash" aria-hidden="true"></i>
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endif %}
+{% endblock %}

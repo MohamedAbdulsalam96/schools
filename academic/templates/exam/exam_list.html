@@ -4,21 +4,23 @@
 
 {% block content %}
 {% if not rows %}
-	add new <a href="{% url 'new-department' %}">Department</a>
+	add new <a href="{% url 'new-exam' %}">Exam</a>
 {% else %}
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Department</th>
+				<th>Exam</th>
+				<th>Date</th>
 				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for row in rows %}
 				<tr>
-					<td>{{ row.department_name }}</td>
+					<td>{{ row.exam }}</td>
+					<td>{{ row.exam_date }}</td>
 					<td>
-						<a href="{% url 'delete-department' department=row.department_name %}">
+						<a href="{% url 'delete-exam' exam=row.exam %}">
 							<i class="fa fa-trash" aria-hidden="true"></i>
 						</a>
 					</td>

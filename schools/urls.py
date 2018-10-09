@@ -23,7 +23,8 @@ from profiles.urls import (
 )
 
 from academic.urls import (
-    attendance_urls, department_urls
+    attendance_urls, department_urls, subject_urls, course_urls,
+    assessment_urls, exam_urls
 )
 
 urlpatterns = [
@@ -40,6 +41,10 @@ urlpatterns = [
     url(r'^parent/', include(parent_urls.urlpatterns)),         # Parent URLs
     url(r'^attendance/', include(attendance_urls.urlpatterns)), # Attendance urls
     url(r'^department/', include(department_urls.urlpatterns)), # Department URLs
+    url(r'^course/', include(course_urls.urlpatterns)),         # subject urls
+    url(r'^subject/', include(subject_urls.urlpatterns)),       # subject urls
+    url(r'^assessment/', include(assessment_urls.urlpatterns)), # assessment urls
+    url(r'^exam/', include(exam_urls.urlpatterns))              # exam urls
 ]
 
 urlpatterns += staticfiles_urlpatterns()
