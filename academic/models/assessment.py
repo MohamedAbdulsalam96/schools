@@ -36,6 +36,12 @@ def validate(sender, instance=None, **kwargs):
     """
     from profiles.models import Student
     from . import Attendance, Exam, Subject
+
+    assessment = Assessment.objects.filter(student=instance.student,
+        subject=instance.subject)
+    if assessment:
+        raise Exception("Assessment is already marked for the subject")
+
     attendance = Attendance.objects.filter(student=instance.student,
         attendance_date=instance.exam.exam_date)
     attendance = attendance and attendance[0]

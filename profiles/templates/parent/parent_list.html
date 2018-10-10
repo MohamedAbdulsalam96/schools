@@ -1,11 +1,4 @@
-{% extends 'layout/base.html' %}
-
-{% block title %} {{ title }} {% endblock %}
-
 {% block content %}
-{% if not rows %}
-	add new <a href="{% url 'new-parent' %}">Parent</a>
-{% else %}
 	<table class="table">
 		<thead>
 			<tr>
@@ -20,6 +13,9 @@
 					<td><a href="{% url 'parent-profile' id=row.id %}">{{ row.id }}</a></td>
 					<td>{{ row.title }}</td>
 					<td>
+						<a href="{% url 'update-parent' id=row.id %}">
+							<i class="fa fa-edit" aria-hidden="true"></i>
+						</a>
 						<a href="{% url 'delete-parent' id=row.id %}">
 							<i class="fa fa-trash" aria-hidden="true"></i>
 						</a>
@@ -28,5 +24,4 @@
 			{% endfor %}
 		</tbody>
 	</table>
-{% endif %}
 {% endblock %}

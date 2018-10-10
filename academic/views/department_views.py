@@ -5,10 +5,12 @@ from academic.forms.department_form import DepartmentForm
 from schools.views import render_base_form
 
 def get_department_list(request):
-	department = Department.objects.all()
-	return render(request, "department/department_list.html", {
+	rows = Department.objects.all()
+	return render(request, "layout/base_list.html", {
 		'title': 'Department List',
-		'rows': department
+        'list_template': "department/department_list.html",
+        'new_url': 'new-department',
+		'rows': rows
 	})
 
 def save_department(request, department=None):

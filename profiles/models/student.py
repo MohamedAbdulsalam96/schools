@@ -22,9 +22,8 @@ class Student(models.Model):
 	prn = models.CharField(max_length=50,
 		editable=False)
 	roll_no = models.IntegerField()
-	# standard = models.ForeignKey('Standard')
-	# division = models.ForeignKey('Division')
-	# previous years details
+	department = models.OneToOneField('academic.Department')
+	course = models.OneToOneField('academic.Course')
 
 	# Timestamps
 	creation = models.DateTimeField(auto_now_add=True, editable=False)

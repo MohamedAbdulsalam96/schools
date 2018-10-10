@@ -4,10 +4,12 @@ from profiles.models import Parent
 from profiles.forms.parent_form import ParentForm
 
 def get_parent_list(request):
-	parents = Parent.objects.all()
-	return render(request, "parent/parent_list.html", {
-		'title': 'Teacher List',
-		'rows': parents
+	rows = Parent.objects.all()
+	return render(request, "layout/base_list.html", {
+		'title': 'Parent List',
+        'list_template': "parent/parent_list.html",
+        'new_url': 'new-parent',
+		'rows': rows
 	})
 
 def get_parent_profile(request, id):

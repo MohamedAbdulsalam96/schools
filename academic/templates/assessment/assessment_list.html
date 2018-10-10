@@ -1,11 +1,4 @@
-{% extends 'layout/base.html' %}
-
-{% block title %} {{ title }} {% endblock %}
-
 {% block content %}
-{% if not rows %}
-	add new <a href="{% url 'new-assessment' %}">Assessment</a>
-{% else %}
 	<table class="table">
 		<thead>
 			<tr>
@@ -34,6 +27,9 @@
 					<td>{{ row.marks_scored }} / {{ row.out_of }}</td>
 					<td>{{ row.status }}</td>
 					<td>
+						<a href="{% url 'update-assessment' id=row.id %}">
+							<i class="fa fa-edit" aria-hidden="true"></i>
+						</a>
 						<a href="{% url 'delete-assessment' id=row.id %}">
 							<i class="fa fa-trash" aria-hidden="true"></i>
 						</a>
@@ -42,5 +38,4 @@
 			{% endfor %}
 		</tbody>
 	</table>
-{% endif %}
 {% endblock %}

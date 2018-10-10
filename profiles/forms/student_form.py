@@ -10,5 +10,7 @@ class StudentForm(forms.ModelForm):
 			"last_name",
 			"date_of_joining",
 			"roll_no",
+			"course",
+			"department",
 			"created_by"
 		]

@@ -5,10 +5,12 @@ from academic.forms.assessment_form import AssessmentForm
 from schools.views import render_base_form
 
 def get_assessment_list(request):
-	assessment = Assessment.objects.all()
-	return render(request, "assessment/assessment_list.html", {
+	rows = Assessment.objects.all()
+	return render(request, "layout/base_list.html", {
 		'title': 'Assessment List',
-		'rows': assessment
+        'list_template': "assessment/assessment_list.html",
+        'new_url': 'new-assessment',
+		'rows': rows
 	})
 
 def save_assessment(request, id=None):

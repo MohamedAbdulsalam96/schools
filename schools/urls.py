@@ -22,6 +22,10 @@ from profiles.urls import (
     student_urls, parent_urls, teacher_urls
 )
 
+from profiles.api.urls import (
+    student_urlpatterns, parent_urlpatterns, teacher_urlpatterns
+)
+
 from academic.urls import (
     attendance_urls, department_urls, subject_urls, course_urls,
     assessment_urls, exam_urls
@@ -44,7 +48,11 @@ urlpatterns = [
     url(r'^course/', include(course_urls.urlpatterns)),         # subject urls
     url(r'^subject/', include(subject_urls.urlpatterns)),       # subject urls
     url(r'^assessment/', include(assessment_urls.urlpatterns)), # assessment urls
-    url(r'^exam/', include(exam_urls.urlpatterns))              # exam urls
+    url(r'^exam/', include(exam_urls.urlpatterns)),              # exam urls
+
+    url(r'^api/student/', include(student_urlpatterns)),
+    url(r'^api/parent/', include(parent_urlpatterns)),
+    url(r'^api/teacher/', include(teacher_urlpatterns)),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

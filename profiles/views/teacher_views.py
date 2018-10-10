@@ -4,10 +4,12 @@ from profiles.models import Teacher
 from profiles.forms.teacher_form import TeacherForm
 
 def get_teacher_list(request):
-	teachers = Teacher.objects.all()
-	return render(request, "teacher/teacher_list.html", {
+	rows = Teacher.objects.all()
+	return render(request, "layout/base_list.html", {
 		'title': 'Teacher List',
-		'rows': teachers
+        'list_template': "teacher/teacher_list.html",
+        'new_url': 'new-teacher',
+		'rows': rows
 	})
 
 def get_teacher_profile(request, id):

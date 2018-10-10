@@ -1,7 +1,7 @@
 {% extends 'layout/base.html' %}
-
 {% load static from staticfiles %}
 
+{% load util_tags %}
 {% block stylesheet %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}">
 {% endblock %}
@@ -10,8 +10,8 @@
 
 {% block content %}
 	<div class="forms">
-		{% if prn %}
-		<form class="form-group" action="{% url update_url id_field=id_value %}" method="POST">
+		{% if id_value %}
+		<form class="form-group" action="{% create_url url=update_url kwargs=params %}" method="POST">
 		{% else %}
 		<form class="form-group" action="{% url new_url %}" method="POST">
 		{% endif %}

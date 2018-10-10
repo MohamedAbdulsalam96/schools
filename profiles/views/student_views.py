@@ -6,8 +6,10 @@ from profiles.forms.student_form import StudentForm
 
 def get_student_list(request):
     students = Student.objects.all()
-    return render(request, "student/student_list.html", {
+    return render(request, "layout/base_list.html", {
 		'title': 'Student List',
+        'list_template': "student/student_list.html",
+        'new_url': 'new-student',
 		'rows': students
 	})
 

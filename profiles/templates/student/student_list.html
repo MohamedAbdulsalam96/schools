@@ -1,19 +1,12 @@
-{% extends 'layout/base.html' %}
-
-{% block title %} {{ title }} {% endblock %}
-
 {% block content %}
-{% if not rows %}
-	add new <a href="{% url 'new-student' %}">Student</a>
-{% else %}
 	<table class="table">
 		<thead>
 			<tr>
 				<th>PRN</th>
 				<th>Name</th>
-				<th>Standard</th>
-				<th>Division</th>
 				<th>Roll No</th>
+				<th>Department</th>
+				<th>Course</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -22,10 +15,13 @@
 				<tr>
 					<td><a href="{% url 'student-profile' prn=row.prn %}">{{ row.prn }}</a></td>
 					<td>{{ row.title }}</td>
-					<td>{{ row.standard }}</td>
-					<td>{{ row.division }}</td>
 					<td>{{ row.roll_no }}</td>
+					<td>{{ row.department }}</td>
+					<td>{{ row.course }}</td>
 					<td>
+						<a href="{% url 'update-student' prn=row.prn %}">
+							<i class="fa fa-edit" aria-hidden="true"></i>
+						</a>
 						<a href="{% url 'delete-student' prn=row.prn %}">
 							<i class="fa fa-trash" aria-hidden="true"></i>
 						</a>
@@ -34,5 +30,4 @@
 			{% endfor %}
 		</tbody>
 	</table>
-{% endif %}
 {% endblock %}

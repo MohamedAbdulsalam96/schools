@@ -62,8 +62,10 @@ def render_base_form(request, form, id, id_field="id", title="", update_url="",
 	""" render base form """
 
 	return render(request, "layout/base_form.html", {
-        "id_field": id_field,
-        "id_value": id,
+		"params": {
+			id_field: id
+		},
+		"id_value": id,
 		"form": form,
         "new_url": new_url,
         "update_url": update_url,

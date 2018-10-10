@@ -1,11 +1,4 @@
-{% extends 'layout/base.html' %}
-
-{% block title %} {{ title }} {% endblock %}
-
 {% block content %}
-{% if not rows %}
-	add new <a href="{% url 'new-teacher' %}">Teacher</a>
-{% else %}
 	<table class="table">
 		<thead>
 			<tr>
@@ -24,6 +17,9 @@
 					<td>{{ row.assigned_class }}</td>
 					<td>{{ row.assigned_division }}</td>
 					<td>
+						<a href="{% url 'update-teacher' id=row.id %}">
+							<i class="fa fa-edit" aria-hidden="true"></i>
+						</a>
 						<a href="{% url 'delete-teacher' id=row.id %}">
 							<i class="fa fa-trash" aria-hidden="true"></i>
 						</a>
@@ -32,5 +28,4 @@
 			{% endfor %}
 		</tbody>
 	</table>
-{% endif %}
 {% endblock %}

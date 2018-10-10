@@ -5,10 +5,12 @@ from academic.forms.exam_form import ExamForm
 from schools.views import render_base_form
 
 def get_exam_list(request):
-	exam = Exam.objects.all()
-	return render(request, "exam/exam_list.html", {
+	rows = Exam.objects.all()
+	return render(request, "layout/base_list.html", {
 		'title': 'Exam List',
-		'rows': exam
+        'list_template': "exam/exam_list.html",
+        'new_url': 'new-exam',
+		'rows': rows
 	})
 
 def save_exam(request, exam=None):

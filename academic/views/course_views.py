@@ -5,10 +5,12 @@ from academic.forms.course_form import CourseForm
 from schools.views import render_base_form
 
 def get_course_list(request):
-	course = Course.objects.all()
-	return render(request, "course/course_list.html", {
+	rows = Course.objects.all()
+	return render(request, "layout/base_list.html", {
 		'title': 'Course List',
-		'rows': course
+        'list_template': "course/course_list.html",
+        'new_url': 'new-course',
+		'rows': rows
 	})
 
 def save_course(request, course=None):

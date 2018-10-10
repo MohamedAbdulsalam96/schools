@@ -5,10 +5,12 @@ from academic.forms.subject_form import SubjectForm
 from schools.views import render_base_form
 
 def get_subject_list(request):
-	subjects = Subject.objects.all()
-	return render(request, "subject/subject_list.html", {
+	rows = Subject.objects.all()
+	return render(request, "layout/base_list.html", {
 		'title': 'Subject List',
-		'rows': subjects
+        'list_template': "subject/subject_list.html",
+        'new_url': 'new-subject',
+		'rows': rows
 	})
 
 def save_subject(request, subject=None):

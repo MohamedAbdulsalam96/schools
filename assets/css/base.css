@@ -118,3 +118,16 @@ body {
   max-width: 400px;
   margin: 70px auto;
 }
+
+.page-head {
+  border-bottom: 1px solid #d1d8dd;
+  height: auto;
+  /* position: fixed; */
+  left: 0;
+  right: 0;
+  top: 41px;
+  margin: auto;
+  background-color: #fff;
+  z-index: 101;
+  text-align: right;
+}

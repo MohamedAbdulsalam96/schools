@@ -5,10 +5,12 @@ from academic.forms.attendance_form import AttendanceForm
 from schools.views import render_base_form
 
 def get_attendance_list(request):
-	attendance = Attendance.objects.all()
-	return render(request, "attendance/attendance_list.html", {
+	rows = Attendance.objects.all()
+	return render(request, "layout/base_list.html", {
 		'title': 'Attendance List',
-		'rows': attendance
+        'list_template': "attendance/attendance_list.html",
+        'new_url': 'new-attendance',
+		'rows': rows
 	})
 
 def save_attendance(request, id=None):
