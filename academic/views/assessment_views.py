@@ -1,9 +1,12 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
 from academic.models import Assessment
-from academic.forms.assessment_form import AssessmentForm
 from schools.views import render_base_form
+from django.shortcuts import render, redirect
+from profiles.models.user import access_teacher
+from academic.forms.assessment_form import AssessmentForm
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def get_assessment_list(request):
 	rows = Assessment.objects.all()
 	return render(request, "layout/base_list.html", {
@@ -23,12 +26,16 @@ def save_assessment(request, id=None):
 	else:
 		return HttpResponse("Error")
 
+@login_required
+@access_teacher()
 def delete_assessment(request, id):
 	# delete assessment from the database
 	Assessment.objects.filter(id=id).delete()
 	return redirect('assessment-list')
 
 # create new assessment
+@login_required
+@access_teacher()
 def save_update_assessment(request, id=None):
 	if request.method == "POST":
 		return save_assessment(request, id=id)

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -20,7 +20,6 @@ def about(request):
 	})
 
 def signup(request):
-
 	if request.method == "POST":
 		form = UserCreationForm(data=request.POST)
 		if form.is_valid():

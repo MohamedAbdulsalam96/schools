@@ -1,9 +1,12 @@
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
 from academic.models import Exam
-from academic.forms.exam_form import ExamForm
+from django.http import HttpResponse
 from schools.views import render_base_form
+from django.shortcuts import render, redirect
+from academic.forms.exam_form import ExamForm
+from profiles.models.user import access_teacher
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def get_exam_list(request):
 	rows = Exam.objects.all()
 	return render(request, "layout/base_list.html", {
@@ -23,12 +26,16 @@ def save_exam(request, exam=None):
 	else:
 		return HttpResponse("Error")
 
+@login_required
+@access_teacher()
 def delete_exam(request, exam):
 	# delete exam from the database
 	Exam.objects.filter(exam=exam).delete()
 	return redirect('exam-list')
 
 # create new exam
+@login_required
+@access_teacher()
 def save_update_exam(request, exam=None):
 	if request.method == "POST":
 		return save_exam(request, exam=exam)

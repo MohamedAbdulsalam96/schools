@@ -1,9 +1,12 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
 from academic.models import Subject
-from academic.forms.subject_form import SubjectForm
 from schools.views import render_base_form
+from django.shortcuts import render, redirect
+from profiles.models.user import access_teacher
+from academic.forms.subject_form import SubjectForm
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def get_subject_list(request):
 	rows = Subject.objects.all()
 	return render(request, "layout/base_list.html", {
@@ -23,12 +26,16 @@ def save_subject(request, subject=None):
 	else:
 		return HttpResponse("Error")
 
+@login_required
+@access_teacher()
 def delete_subject(request, subject):
 	# delete subject from the database
 	Subject.objects.filter(subject=subject).delete()
 	return redirect('subject-list')
 
 # create new subject
+@login_required
+@access_teacher()
 def save_update_subject(request, subject=None):
 	if request.method == "POST":
 		return save_subject(request, subject=subject)

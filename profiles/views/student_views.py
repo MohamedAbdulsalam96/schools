@@ -2,8 +2,11 @@ from django.http import HttpResponse
 from schools.views import render_base_form
 from profiles.models.student import Student
 from django.shortcuts import render, redirect
+from profiles.models.user import access_teacher
 from profiles.forms.student_form import StudentForm
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def get_student_list(request):
     students = Student.objects.all()
     return render(request, "layout/base_list.html", {
@@ -13,6 +16,7 @@ def get_student_list(request):
 		'rows': students
 	})
 
+@login_required
 def get_student_profile(request, prn):
 	student = Student.objects.get(prn=prn)
 	return render(request, "student/student_profile.html", {
@@ -31,6 +35,8 @@ def save_student(request, prn=None):
 	else:
 		return HttpResponse("Error")
 
+@login_required
+@access_teacher()
 def delete_student(request, prn):
 	# delete student from the database
 	Student.objects.filter(prn=prn).delete()
@@ -38,6 +44,8 @@ def delete_student(request, prn):
 	return redirect('student-list')
 
 # create new student
+@login_required
+@access_teacher()
 def save_update_student(request, prn=None):
 	if request.method == "POST":
 		return save_student(request, prn=prn)

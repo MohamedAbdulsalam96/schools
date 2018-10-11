@@ -137,3 +137,5 @@ STATICFILES_DIRS = (
 )
 
 AUTH_USER_MODEL = 'profiles.User'
+
+LOGIN_URL = 'login'

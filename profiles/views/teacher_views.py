@@ -1,8 +1,12 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
 from profiles.models import Teacher
+from django.shortcuts import render, redirect
+from profiles.models.user import access_teacher
 from profiles.forms.teacher_form import TeacherForm
+from django.contrib.auth.decorators import login_required
 
+@login_required
+@access_teacher()
 def get_teacher_list(request):
 	rows = Teacher.objects.all()
 	return render(request, "layout/base_list.html", {
@@ -12,6 +16,8 @@ def get_teacher_list(request):
 		'rows': rows
 	})
 
+@login_required
+@access_teacher()
 def get_teacher_profile(request, id):
 	teacher = Teacher.objects.get(id=id)
 	return render(request, "teacher/teacher_profile.html", {
@@ -27,6 +33,8 @@ def save_teacher(request, id=None):
 	else:
 		return HttpResponse("Error")
 
+@login_required
+@access_teacher()
 def delete_teacher(request, id):
 	# delete teacher from the database
 	Teacher.objects.filter(id=id).delete()
@@ -34,6 +42,8 @@ def delete_teacher(request, id):
 	return redirect('teacher-list')
 
 # create new teacher
+@login_required
+@access_teacher()
 def save_update_teacher(request, id=None):
 	if request.method == "POST":
 		return save_teacher(request, id=id)
