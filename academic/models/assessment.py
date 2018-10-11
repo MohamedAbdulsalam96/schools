@@ -45,11 +45,14 @@ def validate(sender, instance=None, **kwargs):
     attendance = Attendance.objects.filter(student=instance.student,
         attendance_date=instance.exam.exam_date)
     attendance = attendance and attendance[0]
+    instance.attendance = attendance.attendance if attendance else "A"
+    if not attendance: instance.marks_scored = 0
+
+
 
     instance.roll_no = instance.student.roll_no
     instance.course = instance.subject.course
     instance.department = instance.subject.department
-    instance.attendance = attendance.attendance
     instance.out_of = instance.subject.max_marks
     instance.status = "Failed" \
         if instance.marks_scored < instance.subject.passing_marks else "Passed"
